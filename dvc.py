@@ -10,7 +10,7 @@ def max_subarray(array, start = 0, end=None):
      if end is None:
           end = len(array)
      if end == start:
-          return start, end, array[start]
+          return start, end, array[start - 1]
      else:
           middle = (start + end) / 2
 
