@@ -9,7 +9,7 @@ import sys
 def max_subarray(array, start = 0, end=None):
      #provide initial value for end
      if end is None:
-          end = len(array)
+          end = len(array) - 1
      
      #If there is only 1 value left in array
      if end == start:
