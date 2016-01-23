@@ -7,13 +7,17 @@ import csv
 import sys
 
 def max_subarray(array, start = 0, end=None):
+     #provide initial value for end
      if end is None:
           end = len(array)
+     
+     #If there is only 1 value left in array
      if end == start:
-          return start, end, array[start - 1]
+          return start, end, array[start]
      else:
           middle = (start + end) / 2
-
+          
+          #We have to get values for left side, right side, and middle where they cross over, then compare
           leftLow, leftHigh, leftSum = max_subarray(array, start, middle)
           rightLow, rightHigh, rightSum = max_subarray(array, middle + 1, end)
           crossLow, crossHigh, crossSum = max_crossover(array, start, middle, end)
@@ -30,16 +34,21 @@ def max_crossover(array, start, middle, end):
      leftSum = -sys.maxint - 1
      currentRightSum = 0
      rightSum = -sys.maxint - 1
-     for i in range(middle, start, -1):
+     leftIndex = middle
+     rightIndex = middle
+
+     #For the crossover range we have to find the values for everything
+     #including the middle value
+     for i in range(middle, start-1, -1):
           currentLeftSum += array[i]
           if currentLeftSum > leftSum:
                leftsum = currentLeftSum
                leftIndex = i
-     for i in range(middle, end):
+     for j in range(middle+1, end+1):
           currentRightSum += array[i]
           if currentRightSum > rightSum:
                rightSum = currentRightSum
-               rightIndex = i
+               rightIndex = j
      return (leftIndex, rightIndex, leftSum + rightSum)
 
 def main():
@@ -75,6 +84,8 @@ def main():
 
                          resultTime = stopTime - startTime
                          
+                         print("left index: ", leftIndex)
+                         print("\nRight Index: ", rightIndex)
                          print("Largest Result: " + str(result))
                          print("Running Time: " + str(resultTime))
 
@@ -84,6 +95,6 @@ def main():
                                    resultFile.write(", ")
                               resultFile.write(str(row[x]))
 
-                         resultFile.write("\nMax sum: " + result)
+                         resultFile.write("\nMax sum: " + str(result))
 
 main()
