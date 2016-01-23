@@ -5,27 +5,30 @@
 import time
 import os
 import csv
+import sys
 
 # Where the linear search is implemented
 def linearSearch(array):
 	curStart = 0
-	curStop = 1
-	curMax = array[0]
+	curStop = 0
+	curSum = 0
 
 	maxStart = 0
-	maxStop = 1
-	maxSum = array[0]
+	maxStop = 0
+	maxSum = 0
 	for x in range(0, len(array)):
-		if (max(array[x], curMax + array[x]) == array[x]):
-			curMax = array[x]
+		if (array[x] > curSum + array[x]):
+		# if (max(array[x], curSum + array[x]) == array[x]):
+			curSum = array[x]
 			curStart = x
 			curStop = x
 		else:
-			curMax = curMax + array[x]
+			curSum = curSum + array[x]
 			curStop = x
 
-		if (max(curMax, maxSum) == curMax):
-			maxSum = curMax
+		if (curSum > maxSum):
+		# if (max(curSum, maxSum) == curSums):
+			maxSum = curSum
 			maxStart = curStart
 			maxStop = curStop
 
@@ -74,12 +77,13 @@ def main():
 					print("Largest Result: " + str(result[2]))
 					print("Running Time: " + str(resultTime))
 
-					resultFile.write("\nArray: ")
+					resultFile.write("Array: ")
 					for x in range(result[0], result[1] + 1):
 						if (x > result[0]):
 							resultFile.write(", ")
 						resultFile.write(str(row[x]))
 
-					resultFile.write("\nMax sum: " + str(result[2]))
+					resultFile.write("\nMax sum: " + str(result[2]) + "\n")
 
 main()
+#print (sys.version)
