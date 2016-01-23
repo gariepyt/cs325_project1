@@ -9,7 +9,7 @@ import sys
 def max_subarray(array, start = 0, end=None):
      #provide initial value for end
      if end is None:
-          end = len(array) - 1
+          end = len(array)-1
      
      #If there is only 1 value left in array
      if end == start:
@@ -35,7 +35,7 @@ def max_crossover(array, start, middle, end):
      currentRightSum = 0
      rightSum = -sys.maxint - 1
      leftIndex = middle
-     rightIndex = middle
+     rightIndex = middle+1
 
      #For the crossover range we have to find the values for everything
      #including the middle value
@@ -84,8 +84,8 @@ def main():
 
                          resultTime = stopTime - startTime
                          
-                         print("left index: ", leftIndex)
-                         print("\nRight Index: ", rightIndex)
+                         print("left index: " + str(leftIndex))
+                         print("\nRight Index: " + str(rightIndex))
                          print("Largest Result: " + str(result))
                          print("Running Time: " + str(resultTime))
 
