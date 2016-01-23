@@ -4,12 +4,13 @@
 import time
 import os
 import csv
+import sys
 
 def max_subarray(array, start = 0, end=None):
      if end is None:
           end = len(array)
-     if start == end:
-          return array[start]
+     if end == start:
+          return start, end, array[start]
      else:
           middle = (start + end) / 2
 
