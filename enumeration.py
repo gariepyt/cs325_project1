@@ -24,14 +24,21 @@ def getPath():
 def enumerationMaxSubArray(array):
     """ This is the enumeration algorithm for Max Sub Array """
     maxSub = 0
+    maxStart = 0
+    maxStop = 0
     for i in range(0, len(array)):
+        curStart = i
         for j in range(i, len(array)):
             cur = 0
-            for k in range(i, j):
+            curStop = j
+            for k in range(i, j + 1):
                 cur += array[k]
                 if cur > maxSub:
                     maxSub = cur
-    return maxSub
+                    maxStart = curStart
+                    maxStop = curStop
+    resultArray = [maxStart, maxStop, maxSub]
+    return resultArray
 
 # Main
 def main():
@@ -55,7 +62,7 @@ def main():
             start = time.clock()
 
             # Start the algorithm
-            totalMaxSub = enumerationMaxSubArray(row)
+            resultArray = enumerationMaxSubArray(row)
 
             # Stop the clock
             stop = time.clock()
@@ -63,12 +70,20 @@ def main():
             # Get the total clock
             totalTime = stop - start
 
+            # parse result array
+            for x in range(resultArray[0], resultArray[1] +1):
+                if(x == resultArray[0]):
+                    print "[",
+                if (x > resultArray[0]):
+                    print ", ",
+                print row[x],
+            print("]")
+
             # Print Max Sub Array
-            print("\nEnumeration Max Subarray: ", totalMaxSub)
+            print(resultArray[2])
 
             # Print total time
-            print("\nTotal system time for Enumeration Algorithm: ", totalTime)
-
-
+            print("Total system time for Enumeration Algorithm: ", totalTime)
+            print("\n")
 
 main()

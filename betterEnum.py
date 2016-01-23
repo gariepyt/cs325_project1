@@ -1,4 +1,4 @@
-# Enumeration for Max Subarray
+# Better Enumeration for Max Subarray
 # Author: Jeffrey Schachtsick
 # Last Update: 01/19/2015
 # Description: Read from a single text file and output the enumeration for
@@ -24,13 +24,21 @@ def getPath():
 def betterEnumMaxSubArray(array):
     """ This is the enumeration algorithm for Max Sub Array """
     maxSub = 0
+    maxStart = 0
+    maxStop = 1
+    k = 0
     for i in range(0, len(array)):
         sumNum = 0
+        curStart = i
         for j in range(i, len(array)):
             sumNum = sumNum + array[j]
+            curStop = j
             if sumNum > maxSub:
                 maxSub = sumNum
-    return maxSub
+                maxStart = curStart
+                maxStop = curStop
+    resultArray = [maxStart, maxStop, maxSub]
+    return resultArray
 
 # Main
 def main():
@@ -54,7 +62,7 @@ def main():
             start = time.clock()
 
             # Start the algorithm
-            totalMaxSub = betterEnumMaxSubArray(row)
+            resultArray = betterEnumMaxSubArray(row)
 
             # Stop the clock
             stop = time.clock()
@@ -62,12 +70,20 @@ def main():
             # Get the total clock
             totalTime = stop - start
 
+            # parse result array
+            for x in range(resultArray[0], resultArray[1] +1):
+                if(x == resultArray[0]):
+                    print "[",
+                if (x > resultArray[0]):
+                    print ", ",
+                print row[x],
+            print "]"
+
             # Print Max Sub Array
-            print("\nEnumeration Max Subarray: ", totalMaxSub)
+            print(resultArray[2])
 
             # Print total time
-            print("\nTotal system time for Enumeration Algorithm: ", totalTime)
-
-
+            print("Total system time for Enumeration Algorithm: ", totalTime)
+            print("\n")
 
 main()
