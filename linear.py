@@ -6,6 +6,7 @@ import time
 import os
 import csv
 import sys
+import random
 
 # Where the linear search is implemented
 def linearSearch(array):
@@ -36,6 +37,33 @@ def linearSearch(array):
 	return resultArray
 
 	# return maxSum
+
+def testRun():
+	# For testing
+	# count = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000]
+
+	count = 5000
+
+	while count < 5000000000:
+	# for num in testList:
+		randList = [None] * count
+		for n in range(0, count):
+			randNum = random.randrange(0, 101)
+			if (random.randrange(0, 2) == 0):
+				randNum = randNum * -1
+			randList[n] = randNum
+
+		startTime = time.clock()
+		result = linearSearch(randList)
+		stopTime = time.clock()
+
+		resultTime = stopTime - startTime
+
+		print("n: " + str(len(randList)))
+		print("Largest Result: " + str(result[2]))
+		print("Running Time: " + str(resultTime))
+
+		count = count * 10
 
 def main():
 	
@@ -85,5 +113,6 @@ def main():
 
 					resultFile.write("\nMax sum: " + str(result[2]) + "\n")
 
+# testRun()
 main()
 #print (sys.version)
