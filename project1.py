@@ -52,7 +52,36 @@ def betterEnumMaxSubArray(array):
     return resultArray
 
 # For divide and conquer calculations
+def maxMiddleSum(array, low, mid, high):
 
+  # Calculate max subarray on left side of current array
+  sum = 0
+  leftSum = 0
+  for i in range(mid, low-1, -1):
+    sum += array[i]
+    if sum > leftSum:
+      leftSum = sum
+
+  # Calculate max subarray on right side of the current array
+  sum = 0
+  rightSum = 0
+  for i in range(mid+1, high+1, 1):
+    sum += array[i]
+    if sum > rightSum:
+      rightSum = sum
+
+  return (leftSum + rightSum)
+
+# Used for algorithm #3, returns maxSubArray sum
+def maxSubArray(array, low, high):
+  # BASE CASE
+  if low == high:
+    return array[low]
+  mid = (low + high) / 2
+
+  # Return the maximum of left sum, right sum, and combined(middle) sum
+  return max(maxSubArray(array, low, mid), maxSubArray(array, mid+1, high),
+      (maxMiddleSum(array, low, mid, high)))
 
 # For linear calculations
 def linearSearch(array):
@@ -157,6 +186,24 @@ def main():
 						resultFile.write(str(row[x]))
 
 					resultFile.write("\nBetter Enum sum: " + str(result[2]) + "\n")
+
+					# Calc divide and conquer time
+					startTime = time.clock()
+					result1 = maxSubArray(row, 0, len(row)-1)
+					stopTime = time.clock()
+
+					resultTime = stopTime - startTime
+
+					print("Divide and Conquer Result: " + str(result1))
+					print("Divide and Conquer Running Time: " + str(resultTime))
+
+					resultFile.write("Divide and Conquer Array: ")
+					for x in range(result[0], result[1] + 1):
+						if (x > result[0]):
+							resultFile.write(", ")
+						resultFile.write(str(row[x]))
+
+					resultFile.write("\nBetter Enum sum: " + str(result1) + "\n")
 
 					# Calc linear time
 					startTime = time.clock()
