@@ -208,7 +208,7 @@ def main():
 
 					# Calc divide and conquer time
 					startTime = time.clock()
-					result1 = max_subarray(row, 0, len(row)-1)
+					result = max_subarray(row, 0, len(row)-1)
 					stopTime = time.clock()
 
 					resultTime = stopTime - startTime
